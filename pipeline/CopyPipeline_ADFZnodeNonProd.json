@@ -29,7 +29,7 @@
 						"type": "XmlSource",
 						"storeSettings": {
 							"type": "AzureBlobStorageReadSettings",
-							"fileListPath": "adfexportfiles/List.txt",
+							"recursive": true,
 							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
