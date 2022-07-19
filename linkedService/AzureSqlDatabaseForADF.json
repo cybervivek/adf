@@ -5,11 +5,11 @@
 		"annotations": [],
 		"type": "AzureSqlDatabase",
 		"typeProperties": {
-			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=znodebasetest.database.windows.net;initial catalog=master;user id=znodebase",
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=znodebasetest.database.windows.net;initial catalog=Znode_Multifront_972_B2B;user id=znodebase",
 			"alwaysEncryptedSettings": {
 				"alwaysEncryptedAkvAuthType": "ManagedIdentity"
 			},
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQERDNUQwMDc4LTE5M0EtNDg0RC05Nzk3LUI5NUI1QjU4MEI0M182NjIwMTVhMy04MTk3LTRmNDUtODU5YS01NDY0MDMwYmZmMDMiDQp9"
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQERDNUQwMDc4LTE5M0EtNDg0RC05Nzk3LUI5NUI1QjU4MEI0M181NjczZDRhNi04Nzk4LTRiODYtOTg2Ni0wODRjMzM2Y2UzZGMiDQp9"
 		}
 	}
 }
