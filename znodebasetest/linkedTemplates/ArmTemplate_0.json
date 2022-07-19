@@ -152,6 +152,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "ZnodeADFDomain.xml",
 						"container": "adfexportfiles"
 					}
 				}
@@ -193,7 +194,7 @@
 								"type": "XmlSource",
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
-									"fileListPath": "adfexportfiles/List.txt",
+									"recursive": true,
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
