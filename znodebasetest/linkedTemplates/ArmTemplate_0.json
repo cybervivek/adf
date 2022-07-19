@@ -193,9 +193,8 @@
 								"type": "XmlSource",
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false,
-									"prefix": "ZnodeADFDomain"
+									"fileListPath": "adfexportfiles/List.txt",
+									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
 									"type": "XmlReadSettings",
