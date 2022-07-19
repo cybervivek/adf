@@ -1,0 +1,170 @@
+{
+	"name": "CopyPipeline_1ya",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_1ya",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "adfexportfiles//ZnodeADFDomain.xml"
+					},
+					{
+						"name": "Destination",
+						"value": "dbo.ZnodeDomain"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "XmlSource",
+						"storeSettings": {
+							"type": "AzureBlobStorageReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "XmlReadSettings",
+							"validationMode": "none"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink"
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "AzureBlobStorageForADF",
+								"type": "LinkedServiceReference"
+							},
+							"path": "adfexportfileslogs"
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['ZnodeDomains']['ZnodeDomain']['PortalId']"
+								},
+								"sink": {
+									"name": "PortalId",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ZnodeDomains']['ZnodeDomain']['DomainName']"
+								},
+								"sink": {
+									"name": "DomainName",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ZnodeDomains']['ZnodeDomain']['IsActive']"
+								},
+								"sink": {
+									"name": "IsActive",
+									"type": "Boolean"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ZnodeDomains']['ZnodeDomain']['ApiKey']"
+								},
+								"sink": {
+									"name": "ApiKey",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ZnodeDomains']['ZnodeDomain']['ApplicationType']"
+								},
+								"sink": {
+									"name": "ApplicationType",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ZnodeDomains']['ZnodeDomain']['CreatedBy']"
+								},
+								"sink": {
+									"name": "CreatedBy",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ZnodeDomains']['ZnodeDomain']['CreatedDate']"
+								},
+								"sink": {
+									"name": "CreatedDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ZnodeDomains']['ZnodeDomain']['ModifiedBy']"
+								},
+								"sink": {
+									"name": "ModifiedBy",
+									"type": "Int32"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ZnodeDomains']['ZnodeDomain']['ModifiedDate']"
+								},
+								"sink": {
+									"name": "ModifiedDate",
+									"type": "DateTime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['ZnodeDomains']['ZnodeDomain']['IsDefault']"
+								},
+								"sink": {
+									"name": "IsDefault",
+									"type": "Boolean"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_1ya",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_1ya",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}
