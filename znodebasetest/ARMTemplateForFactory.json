@@ -54,9 +54,8 @@
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
 									"recursive": true,
-									"wildcardFolderPath": "*",
-									"wildcardFileName": "*",
-									"enablePartitionDiscovery": false
+									"enablePartitionDiscovery": false,
+									"prefix": "ZnodeADFDomain"
 								},
 								"formatSettings": {
 									"type": "XmlReadSettings",
