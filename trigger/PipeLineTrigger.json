@@ -3,15 +3,8 @@
 	"properties": {
 		"description": "Pipeline trigger on storage account",
 		"annotations": [],
-		"runtimeState": "Started",
-		"pipelines": [
-			{
-				"pipelineReference": {
-					"referenceName": "CopyPipeline_1ya",
-					"type": "PipelineReference"
-				}
-			}
-		],
+		"runtimeState": "Stopped",
+		"pipelines": [],
 		"type": "BlobEventsTrigger",
 		"typeProperties": {
 			"blobPathBeginsWith": "/adfexportfiles/blobs/adfexportfiles/",
