@@ -1,0 +1,25 @@
+{
+	"name": "PipeLineTrigger",
+	"properties": {
+		"description": "Pipeline trigger on storage account",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "CopyPipeline_1ya",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/adfexportfiles/blobs/adfexportfiles/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/d449b5fc-f6b7-4de6-8382-ef443f155907/resourceGroups/nonprod-znode-base/providers/Microsoft.Storage/storageAccounts/znodebase",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
