@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseForADF'"
 		},
+		"PipeLineTrigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/d449b5fc-f6b7-4de6-8382-ef443f155907/resourceGroups/nonprod-znode-base/providers/Microsoft.Storage/storageAccounts/znodebase"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -47,6 +51,9 @@
 					},
 					"AzureSqlDatabaseForADF_connectionString": {
 						"value": "[parameters('AzureSqlDatabaseForADF_connectionString')]"
+					},
+					"PipeLineTrigger_properties_typeProperties_scope": {
+						"value": "[parameters('PipeLineTrigger_properties_typeProperties_scope')]"
 					}
 				}
 			},

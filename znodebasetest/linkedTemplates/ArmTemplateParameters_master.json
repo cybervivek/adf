@@ -11,6 +11,9 @@
 		"AzureSqlDatabaseForADF_connectionString": {
 			"value": ""
 		},
+		"PipeLineTrigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/d449b5fc-f6b7-4de6-8382-ef443f155907/resourceGroups/nonprod-znode-base/providers/Microsoft.Storage/storageAccounts/znodebase"
+		},
 		"containerUri": {
 			"value": ""
 		},

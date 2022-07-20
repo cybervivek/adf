@@ -14,6 +14,10 @@
 		"AzureSqlDatabaseForADF_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabaseForADF'"
+		},
+		"PipeLineTrigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/d449b5fc-f6b7-4de6-8382-ef443f155907/resourceGroups/nonprod-znode-base/providers/Microsoft.Storage/storageAccounts/znodebase"
 		}
 	},
 	"variables": {
@@ -456,146 +460,34 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/CopyPipeline_ADFZnodeNonProd')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
+			"name": "[concat(parameters('factoryName'), '/PipeLineTrigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"description": "Copy Pipeline for ADF Znode NonProd",
-				"activities": [
+				"description": "Pipeline trigger on storage account",
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
 					{
-						"name": "Copy_8nq",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "7.00:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
+						"pipelineReference": {
+							"referenceName": "CopyPipeline_1ya",
+							"type": "PipelineReference"
 						},
-						"userProperties": [
-							{
-								"name": "Source",
-								"value": "adfexportfiles//"
-							},
-							{
-								"name": "Destination",
-								"value": "dbo.ZnodeDomain"
-							}
-						],
-						"typeProperties": {
-							"source": {
-								"type": "XmlSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"wildcardFolderPath": "*",
-									"wildcardFileName": "xml",
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "XmlReadSettings",
-									"validationMode": "none"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink"
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": true,
-							"validateDataConsistency": false,
-							"logSettings": {
-								"enableCopyActivityLog": true,
-								"copyActivityLogSettings": {
-									"logLevel": "Warning",
-									"enableReliableLogging": false
-								},
-								"logLocationSettings": {
-									"linkedServiceName": {
-										"referenceName": "AzureBlobStorageForADF",
-										"type": "LinkedServiceReference"
-									},
-									"path": "adfexportfileslogs"
-								}
-							},
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"path": "$['PortalId']"
-										},
-										"sink": {
-											"name": "PortalId",
-											"type": "Int32"
-										}
-									},
-									{
-										"source": {
-											"path": "$['DomainName']"
-										},
-										"sink": {
-											"name": "DomainName",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['IsActive']"
-										},
-										"sink": {
-											"name": "IsActive",
-											"type": "Boolean"
-										}
-									},
-									{
-										"source": {
-											"path": "$['ApiKey']"
-										},
-										"sink": {
-											"name": "ApiKey",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['ApplicationType']"
-										},
-										"sink": {
-											"name": "ApplicationType",
-											"type": "String"
-										}
-									}
-								],
-								"mapComplexValuesToString": false
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "SourceDataset_8nq",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DestinationDataset_8nq",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
+						"parameters": {}
 					}
 				],
-				"policy": {
-					"elapsedTimeMetric": {},
-					"cancelAfter": {}
-				},
-				"annotations": []
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/adfexportfiles/blobs/adfexportfiles/",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('PipeLineTrigger_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/SourceDataset_8nq')]",
-				"[concat(variables('factoryId'), '/datasets/DestinationDataset_8nq')]",
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageForADF')]"
+				"[concat(variables('factoryId'), '/pipelines/CopyPipeline_1ya')]"
 			]
 		}
 	]
