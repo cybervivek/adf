@@ -55,6 +55,27 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/PipeLineTrigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Pipeline trigger on storage account",
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/adfexportfiles/blobs/adfexportfiles/",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('PipeLineTrigger_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DestinationDataset_1ya')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -143,118 +164,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DestinationDataset_8nq')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureSqlDatabaseForADF",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "AzureSqlTable",
-				"schema": [
-					{
-						"name": "DomainId",
-						"type": "int",
-						"precision": 10,
-						"scale": 0
-					},
-					{
-						"name": "PortalId",
-						"type": "int",
-						"precision": 10,
-						"scale": 0
-					},
-					{
-						"name": "DomainName",
-						"type": "nvarchar",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "IsActive",
-						"type": "bit",
-						"precision": 1,
-						"scale": 0
-					},
-					{
-						"name": "ApiKey",
-						"type": "nvarchar",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "ApplicationType",
-						"type": "varchar",
-						"precision": 0,
-						"scale": 0
-					},
-					{
-						"name": "CreatedBy",
-						"type": "int",
-						"precision": 10,
-						"scale": 0
-					},
-					{
-						"name": "CreatedDate",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					},
-					{
-						"name": "ModifiedBy",
-						"type": "int",
-						"precision": 10,
-						"scale": 0
-					},
-					{
-						"name": "ModifiedDate",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
-					},
-					{
-						"name": "IsDefault",
-						"type": "bit",
-						"precision": 1,
-						"scale": 0
-					}
-				],
-				"typeProperties": {
-					"schema": "dbo",
-					"table": "ZnodeDomain"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureSqlDatabaseForADF')]"
-			]
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/SourceDataset_1ya')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "AzureBlobStorageForADF",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "Xml",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobStorageLocation",
-						"fileName": "ZnodeADFDomain.xml",
-						"container": "adfexportfiles"
-					}
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageForADF')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SourceDataset_8nq')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -457,37 +367,6 @@
 				"[concat(variables('factoryId'), '/datasets/SourceDataset_1ya')]",
 				"[concat(variables('factoryId'), '/datasets/DestinationDataset_1ya')]",
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorageForADF')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/PipeLineTrigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"description": "Pipeline trigger on storage account",
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "CopyPipeline_1ya",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/adfexportfiles/blobs/adfexportfiles/",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('PipeLineTrigger_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/CopyPipeline_1ya')]"
 			]
 		}
 	]
